@@ -82,7 +82,7 @@ class Bot(object):
         self.moves = []
         self.gameCNT += 1
 
-    # save q-values during the game, not death mode
+    # save q-values during the game, the bird is still alive, just to reduce the memory consumption
     def save_qvalues(self):
         if len(self.moves) > 6_000_000:
             history = list(reversed(self.moves[:5_000_000]))

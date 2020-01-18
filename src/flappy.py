@@ -78,6 +78,7 @@ IMAGES_INFO["background"] = [288, 512]
 SCORES = []
 EPISODE = 0
 MAX_SCORE = 10_000_000
+RESUME_ONCRASH = False
 
 def getNextUpdateTime():
     return datetime.datetime.now() + datetime.timedelta(minutes = 5)
@@ -85,13 +86,14 @@ def getNextUpdateTime():
 NEXT_UPDATE_TIME = getNextUpdateTime()
 
 def main():
-    global HITMASKS, SCREEN, FPSCLOCK, FPS, bot, MODE, SCORES, EPISODE, MAX_SCORE
+    global HITMASKS, SCREEN, FPSCLOCK, FPS, bot, MODE, SCORES, EPISODE, MAX_SCORE, RESUME_ONCRASH
 
     parser = argparse.ArgumentParser("flappy.py")
     parser.add_argument("--fps", type=int, default=60, help="number of frames per second, default in normal mode: 25, training or AI mode: 60")
     parser.add_argument("--episode", type=int, default=10000, help="episode number, default: 10000")
     parser.add_argument("--ai", action="store_true", help="use AI agent to play game")
     parser.add_argument("--train", action="store", choices=('normal', 'noui', 'replay'), help="train AI agent to play game, replay game from last 50 steps in 'replay' mode")
+    parser.add_argument("--resume", action="store_true", help="Resume game from last 50 steps before crash")
     parser.add_argument("--max", type=int, default=10_000_000, help="maxium score per episode, restart game if agent reach this score, default: 10M")
     parser.add_argument("--dump_hitmasks", action="store_true", help="dump hitmasks to file and exit")
     args = parser.parse_args()
@@ -99,12 +101,14 @@ def main():
     FPS = args.fps
     EPISODE = args.episode
     MAX_SCORE = args.max
+    RESUME_ONCRASH = args.resume
     if args.ai:
         MODE = Mode.PLAYER_AI
     elif args.train == "noui":
         MODE = Mode.TRAIN_NOUI
     elif args.train == "replay":
         MODE = Mode.TRAIN_REPLAY
+        RESUME_ONCRASH = True
         FPS = 20
     elif args.train == "normal":
         MODE = Mode.TRAIN
@@ -376,7 +380,7 @@ def mainGame(movementInfo):
 
         else:
             
-            if MODE in [Mode.TRAIN_NOUI, Mode.TRAIN, Mode.TRAIN_REPLAY]: 
+            if MODE in [Mode.TRAIN_NOUI, Mode.TRAIN, Mode.TRAIN_REPLAY] and RESUME_ONCRASH: 
                 currentState = [playerx, playery, playerVelY, copy.deepcopy(lowerPipes), copy.deepcopy(upperPipes), score, playerIndex]
                 if restartGame and steps < len(stateHistory):
                     stateHistory[steps] = currentState
