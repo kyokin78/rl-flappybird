@@ -64,11 +64,40 @@ python3 src/flappy.py --train replay --episode 1000 --max 1000
 
 ---
 
-## How it works
+## What I've done
 
-> To be updated
+After long time training (10+ hours), I ran another test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demostrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
+
+<img src="res/episode_2_max_10M.png" width="500" /><br>
+`Total episode: 2, Max score: 10,000,000`  
+
+From start point to the first pipe, the bird will fly a long distance without any obstacles, the states before the first pipe won't be same as the following training, the next test demostrates the trained agent deals with the beginning of the journey perfectly. Setting **Max Score=10** and **Episode=20,000**, the agent passed the test without any failure.
+
+<img src="res/episode_20K_max_10.png" width="500" /><br>
+`Total episode: 20,000, Max score: 10`  
+
+The 3rd test demostrates the stability and reproducibility for any of the game. In this test, **Max Score=10,000** and **Episode=800**, the trained agent also passed without any failure.  
+
+<img src="res/episode_800_max_10K.png" width="500" /><br>
+`Total episode: 800, Max score: 10,000`  
+
+I did additional test to see how many score the bird could fly, just for curious. I set **Max Score=50,000,000** for only **One Episode**.  
+
+<img src="res/50M_Score.png" width="500" />
+
+## Conclusion
+
+**The trained agent(flappy bird) NEVER dies.**
 
 ---
+
+## Background
+
+To be updated
+
+## How to improve
+
+To be updated
 
 ## References
 
