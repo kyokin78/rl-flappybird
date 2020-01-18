@@ -1,25 +1,29 @@
 
-# Use reinforcement learning to train a flappy bird which NEVER die.
+# Use reinforcement learning to train a flappy bird which NEVER dies.
 
 ![always flying](res/307K_flying.gif)
 
 ---
 
-# Dependency
+## Dependency
 Install **pygame==1.9.6** package first<br>
 Install **python3**
 
 ---
-# File Structure
+## File Structure
 - `src/bot.py` - This file contains the `Bot` class that applies the Q-Learning logic to the game.
 - `src/flappy.py` - Main program file in python, play the game or train an agent to play the game
 - `data/qvalues.json` - Q-table of state-actions in Q-Learning, start a new training by removing this file
 - `data/hitmasks_data.pkl` - Mask data to detect crash in non-UI training mode
 
 ---
-# How to run
-`python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
-                 [--train {normal,noui,replay}] [--max MAX] [--dump_hitmasks]`
+## How to run
+```
+python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
+                      [--train {normal,noui,replay}] [--max MAX]
+                      [--dump_hitmasks]
+```
+
 + `-h, --help` : Show usage formation
 + `--fps FPS` : number of frames per second, default value:
   - User play or normal training mode with UI: `25`
@@ -36,24 +40,20 @@ Install **python3**
 
 
 ### Play game in user mode
-```
-python3 src/flappy.py
-```
+    python3 src/flappy.py
+
 ### Train the agent bot without UI, play 1000 times
-```
-python3 src/flappy.py --train noui --episode 1000
-```
+    python3 src/flappy.py --train noui --episode 1000
 ### Train the agent bot without UI, replay last 50 steps before crash, restart game when the bird reach 1000 scores
-```
-python3 src/flappy.py --train replay --episode 1000 --max 1000
-```
+    python3 src/flappy.py --train replay --episode 1000 --max 1000
 
 
-# How it works
+---
+## How it works
 
 > To be updated
 
-
-# References
+---
+## References
 https://github.com/chncyhn/flappybird-qlearning-bot<br>
 https://github.com/sourabhv/FlapPyBird
