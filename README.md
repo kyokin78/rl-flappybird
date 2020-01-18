@@ -24,7 +24,7 @@ Install **python3**
 
 ## How to run
 
-``` python
+``` dos
 python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
                       [--train {normal,noui,replay}] [--max MAX]
                       [--dump_hitmasks]
@@ -44,21 +44,21 @@ python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
 - `--max MAX` : Maxium score per episode, restart game if agent reach this score, default: 10,000,000
 - `--dump_hitmasks` : dump hitmasks to file and exit
 
-> ### Play game in user mode
+### Play game in user mode
 
-``` python
+``` dos
 python3 src/flappy.py
 ```
 
-> ### Train the agent bot without UI, play 1000 times
+### Train the agent bot without UI, play 1000 times
 
-``` python
+``` dos
 python3 src/flappy.py --train noui --episode 1000
 ```
 
-> ### Train the agent bot without UI, replay last 50 steps before crash, restart game when the bird reach 1000 scores
+### Train the agent bot without UI, replay last 50 steps before crash, restart game when the bird reach 1000 scores
 
-``` python
+``` dos
 python3 src/flappy.py --train replay --episode 1000 --max 1000
 ```
 
