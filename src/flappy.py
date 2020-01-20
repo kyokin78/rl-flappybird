@@ -414,7 +414,7 @@ def mainGame(movementInfo):
 
             # Update the q scores
             if MODE in [Mode.TRAIN_NOUI, Mode.TRAIN, Mode.TRAIN_REPLAY]:
-                bot.update_scores(score < 3)
+                bot.update_scores()
 
                 if len(stateHistory) > 20 and (not restartGame or (restartGame and steps > 10)):
                     updateQtable(score)
