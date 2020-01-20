@@ -24,7 +24,7 @@ Install **python 3.7**
 
 ---
 
-## How to run
+## How to Run
 
 ``` dos
 python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
@@ -67,7 +67,7 @@ python3 src/flappy.py --train replay --episode 1000 --max 1000
 
 ---
 
-## What I've done
+## What I've Done
 
 After long time training (10+ hours), I ran another test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demostrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
 
@@ -116,7 +116,9 @@ However, as you can see, the bird can't reach a high score in each game, it may 
 
 ### Is it possible to train a bird never to die in any of a game?
 
-## How to improve
+---
+
+## How to Improve
 
 ### State Space
 
@@ -202,7 +204,9 @@ In my solution, the state is only initialized if it's a new state. So it only co
 
 To start a new training from scratch, it only need remove the `qvalues.json` file under `data/` folder.
 
-## Steps to train a bird which never dies
+---
+
+## Steps to Train a Bird Which Never Dies
 
 1. Set **Max score = 10K**, **Episode = 15K**, enable **resume** mode
 
@@ -236,6 +240,8 @@ python3 src/flappy.py --train noui --episode 1000 --resume
 <p align="center"><img src="res/episode_2_max_10M_1.png" width="500"></p>  
 
 5. It may take 10+ hours to train a bird to a perfect state from scratch. Validate the AI bot without **resume** flag, it will 3x faster. It costs about 2 hours to reach 10M scores in my Mac. If bird still encounters crash at the beginning phase, try to train more episodes in *`step 2`*. If bird crashes in the latter phase, try to train more in *`step 1`*.
+
+---
 
 ## References
 
