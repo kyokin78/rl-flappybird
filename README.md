@@ -43,7 +43,7 @@ python3 src/flappy.py [-h] [--fps FPS] [--episode EPISODE] [--ai]
   - `normal` : Normal training mode with UI
   - `noui` : Training without UI, fastest training mode
   - `replay` : Training without UI, replay game with UI from last 50 steps once the bird crashes, it provides a visual way to check how bird crashed.
-- `--resume` : Resume game from last 50 steps before crash, it's useful to correct flying trajectory for rare scenario. But it's 3x slower than normal mode. When in replay training mode, this flag is enabled automatically.  
+- `--resume` : Resume game from last 50 steps before crash, it's useful to correct flying trajectory for rare scenario. But it's 3x slower than normal mode. When in replay training mode, this option is enabled automatically.  
 - `--max MAX` : Maxium score per episode, restart game if agent reach this score, default: 10,000,000
 - `--dump_hitmasks` : dump hitmasks to file and exit
 
@@ -67,9 +67,9 @@ python3 src/flappy.py --train replay --episode 1000 --max 1000
 
 ---
 
-## What I've Done
+## Achievements
 
-After long time training (10+ hours), I ran another test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demostrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
+After long time training (10+ hours), I ran validation test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demostrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
 
 <p align="center">
 <img src="res/episode_2_max_10M.png" width="430">&nbsp; &nbsp;
@@ -90,7 +90,7 @@ The 3rd test demostrates the stability and reproducibility for any of the game. 
 <img src="res/episode_2K_max_10K_2.png" width="490"><br>
 <b>Total episode: 2,000, Max score: 10,000</b></p>
 
-I did additional test to see how many score the bird could fly, just for curious. I set **Max Score=50,000,000** for only **One Episode**.  
+I did final test to see how many score the bird could fly, just for curious. I set **Max Score=50,000,000** for only **One Episode**.  
 
 <p align="center">
 <img src="res/50M_Score.png" width="600"></p>
@@ -103,7 +103,7 @@ I did additional test to see how many score the bird could fly, just for curious
 
 ## Background
 
-Thanks [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot) for providing a good sample to start with. And much appreciated of [Sarvagya Vaish](https://github.com/SarvagyaVaish) explaining the theory in details [here](https://sarvagyavaish.github.io/FlappyBirdRL/).
+Thanks [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot) for providing a good example to start with. And much appreciated of [Sarvagya Vaish](https://github.com/SarvagyaVaish) explaining the theory in details [here](https://sarvagyavaish.github.io/FlappyBirdRL/).
 
 In [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot)'s code, the trained agent can reach over 5000 scores as following:
 
@@ -114,7 +114,7 @@ In [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot)'s code, t
 
 However, as you can see, the bird can't reach a high score in each game, it may crash at any score. It's not stable enough.
 
-### Is it possible to train a bird never to die in any of a game?
+### Is it possible to train a bird never to die in any game?
 
 ---
 
@@ -128,7 +128,7 @@ In [Sarvagya](https://github.com/SarvagyaVaish)'s post, he defined three variabl
 - **Y** - Vertical distance to next pipe
 - **V** - Current velocity of the bird
 
-In [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot)'s code, if bird enters tunnel more than 30 pixels(pipe width=52px), the bird will move the eyes to next pipe. However, it may cause conflict result to the Q-table. For the same X,Y, V(to the next pipe), if the bird's current position is close to the edge part(in red) of current pipe, the bird may crash in the tunnel which is transparent to the bird then.
+In [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot)'s code, if bird enters tunnel more than 30 pixels(pipe width=52px), the bird will move the eyes to next pipe. However, it may cause conflict result to the Q-table. For the same X, Y, V(to the next pipe), if the bird's current position is close to the edge part of current pipe(in red), the bird may crash in the tunnel which is transparent to the bird at that time.
 
 <p align="center">
 <img src="res/X_Y_Distance.png" width="250">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
@@ -166,7 +166,7 @@ We train the bird for million of times, and the bird accumulates a large number 
 
 It's rare chance to encounter the worst cases. In other words, the bird doesn't have enough training sessions on these cases. It may encounter once, but next time, it won't encounter the similar scenario. It may take a long time to happen again.
 
-It's not ideal for training. I recorded the last 50 steps of the bird journey in real time, **`the game can resume from the last 50 steps before the crash**`. It's a great help to traverse all the possible states in a short time.
+It's not ideal for training. I recorded the last 50 steps of the bird journey in real time, **`the game can resume from the last 50 steps before the crash`**. It's a great help to traverse all the possible states in a short time.
 
 Let's take the previous case as an example. The bird is in the falling state when entering the tunnel, no matter it takes *route 1* or *route 2* or any other route, it may still crash on next pipe. The game restarts from this point, it may try other action and dies. Restart game again until the bird finds it shall be in a rising state to enter this case. Then it can go through any scenario including worst case.
 
@@ -200,9 +200,9 @@ After the change, the maximum memory consumption is around 1GB, much less than b
 
 In the original solution, it need a separate step to initialize the q-table and it also includes a lot of states which the bird never experience.
 
-In my solution, the state is only initialized if it's a new state. So it only contains the states which the bird experiences in Q-table. And it doesn't need a separate step to initialize the Q-table first.
+In my solution, the state is only initialized if the bird experiences a new state. So Q-table only contains the states which the bird ever experienced. And it doesn't need a separate step to initialize the Q-table first.
 
-To start a new training from scratch, it only need remove the `qvalues.json` file under `data/` folder.
+To start a new training from scratch, it only needs remove the `qvalues.json` file under `data/` folder.
 
 ---
 
@@ -239,7 +239,7 @@ python3 src/flappy.py --train noui --episode 1000 --resume
 
 <p align="center"><img src="res/episode_2_max_10M_1.png" width="500"></p>  
 
-5. It may take 10+ hours to train a bird to a perfect state from scratch. Validate the AI bot without **resume** flag, it will 3x faster. It costs about 2 hours to reach 10M scores in my Mac. If bird still encounters crash at the beginning phase, try to train more episodes in *`step 2`*. If bird crashes in the latter phase, try to train more in *`step 1`*.
+5. It may take 10+ hours to train a bird to a perfect state from scratch. Validate the AI bot without **resume** option, it will 3x faster. It costs about 2 hours to reach 10M scores in my Mac. If bird still encounters crash at the beginning phase, try to train more episodes in *`step 2`*. If bird crashes in the latter phase, try to train more in *`step 1`*.
 
 ---
 
