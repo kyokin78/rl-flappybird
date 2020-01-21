@@ -1,6 +1,10 @@
 
 # Use reinforcement learning to train a flappy bird which NEVER dies  
 
+### [Use reinforcement learning to train a flappy bird NEVER to die](https://medium.com/p/35b9625aaecc)
+
+### [Video](https://youtu.be/PZ5YEKlKz80)  
+
 ![always flying](res/307K_flying.gif)
 
 ---
@@ -69,21 +73,21 @@ python3 src/flappy.py --train replay --episode 1000 --max 1000
 
 ## Achievements
 
-After long time training (10+ hours), I ran validation test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demostrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
+After long time training (10+ hours), I ran validation test with **Max Score=10M** and **Episode=2**. The game will restart once the bird reaches 10M score. This test demonstrates the trained agent can fly for a long time without any crash. Even training without UI, it still need almost 2 hours in my Mac to reach 10M scores. I only run 2 episodes in this test.
 
 <p align="center">
 <img src="res/episode_2_max_10M.png" width="430">&nbsp; &nbsp;
 <img src="res/episode_2_max_10M_2.png" width="500"><br>
 <b>Total episode: 2, Max score: 10,000,000</b></p>  
 
-From start point to the first pipe, the bird will fly a long distance without any obstacles, the states before the first pipe won't be same as the following training, the next test demostrates the trained agent deals with the beginning of the journey perfectly. Setting **Max Score=10** and **Episode=100,000**, the agent passed the test without any failure.
+From start point to the first pipe, the bird will fly a long distance without any obstacles, the states before the first pipe won't be same as the following training, the next test demonstrates the trained agent deals with the beginning of the journey perfectly. Setting **Max Score=10** and **Episode=100,000**, the agent passed the test without any failure.
 
 <p align="center">
 <img src="res/episode_100K_max_10_1.png" width="430">&nbsp; &nbsp;
 <img src="res/episode_100K_max_10_2.png" width="500"><br>
 <b>Total episode: 100,000, Max score: 10</b></p>  
 
-The 3rd test demostrates the stability and reproducibility for any of the game. In this test, **Max Score=10,000** and **Episode=2,000**, the trained agent also passed without any failure.  
+The 3rd test demonstrates the stability and reproducibility for any of the game. In this test, **Max Score=10,000** and **Episode=2,000**, the trained agent also passed without any failure.  
 
 <p align="center">
 <img src="res/episode_2K_max_10K_1.png" width="430">&nbsp; &nbsp;
@@ -122,7 +126,7 @@ However, as you can see, the bird can't reach a high score in each game, it may 
 
 ### State Space
 
-In [Sarvagya](https://github.com/SarvagyaVaish)'s post, he defined three variables to represent one state:  
+In [Sarvagya](https://github.com/SarvagyaVaish)'s post, he defined three dimensions to represent one state:  
 
 - **X** - Horizontal distance to next pipe
 - **Y** - Vertical distance to next pipe
@@ -135,7 +139,7 @@ In [Cihan Ceyhan](https://github.com/chncyhn/flappybird-qlearning-bot)'s code, i
 <img src="res/Blind_In_Tunnel.png" width="250">
 </p>
 
-I added the 4th variable in the state:
+I added the 4th dimension in the state:
 
 - **`Y1`** - the vertical distance between next two pipes, it helps bird to take action in advance according to the height difference of two consecutive pipes. This value is only used when the bird enters the tunnel part. It can reduce the state space.
 
@@ -248,3 +252,4 @@ python3 src/flappy.py --train noui --episode 1000 --resume
 http://sarvagyavaish.github.io/FlappyBirdRL/  
 https://github.com/chncyhn/flappybird-qlearning-bot  
 https://github.com/sourabhv/FlapPyBird  
+
