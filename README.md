@@ -1,7 +1,7 @@
 
 # Use reinforcement learning to train a flappy bird which NEVER dies  
 
-### [Use reinforcement learning to train a flappy bird NEVER to die](https://medium.com/p/35b9625aaecc)
+### [Use reinforcement learning to train a flappy bird NEVER to die](https://towardsdatascience.com/use-reinforcement-learning-to-train-a-flappy-bird-never-to-die-35b9625aaecc)
 
 ### [Video](https://youtu.be/PZ5YEKlKz80)  
 
